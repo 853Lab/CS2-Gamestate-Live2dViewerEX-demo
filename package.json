@@ -1,0 +1,28 @@
+{
+  "name": "csgo_gamestate_live2dviewerex_demo",
+  "version": "1.0.0",
+  "description": "CSGO Gamestate Live2dViewerEX demo",
+  "main": "out/index.js",
+  "scripts": {
+    "build:auto": "tsc -w",
+    "run": "node --inspect out/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/853Lab/CSGO_Gamestate_WebSocket.git"
+  },
+  "keywords": [],
+  "author": "Sonic853",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/853Lab/CSGO_Gamestate_WebSocket/issues"
+  },
+  "homepage": "https://github.com/853Lab/CSGO_Gamestate_WebSocket#readme",
+  "devDependencies": {
+    "@types/node": "^16.11.6",
+    "@types/ws": "^8.2.0"
+  },
+  "dependencies": {
+    "ws": "^8.2.3"
+  }
+}

@@ -1,1 +1,1 @@
-# CSGO_Gamestate_Live2dViewerEX_demo
+# CSGO Gamestate Live2dViewerEX demo
