@@ -52,6 +52,7 @@ export interface Data {
             health: number
             armor: number
             helmet: boolean
+            // 255 - 0
             flashed: number
             smoked: number
             burning: number
@@ -112,6 +113,19 @@ export interface Data {
     }
     auth: {
         the853: 'rtx3070ti'
+    }
+}
+
+const RList = new class {
+    time = 200
+    #list = -1
+    snooze = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+    async Push() {
+        this.#list++
+        await this.snooze(this.#list * this.time)
+        Promise.resolve().finally(() => {
+            setTimeout(() => { this.#list-- }, (this.#list + 1) * this.time)
+        })
     }
 }
 
@@ -276,16 +290,33 @@ class LVEX extends Event {
                 mtn
             }
         })
-        console.log('发送LVEX：', msg);
-        await new Promise((resolve) => {
+        await this.SendMsg(msg)
+    }
+    async SetExpId(expId = 0, id = this.modelId) {
+        const msg = JSON.stringify({
+            msg: 13300,
+            msgId: 1,
+            data: {
+                id,
+                expId
+            }
+        })
+        await this.SendMsg(msg)
+    }
+    async SendMsg(msg: string) {
+        console.log('发送LVEX：', msg)
+        await RList.Push()
+        return new Promise((resolve) => {
             this.ws.send(msg, e => resolve(e))
         })
     }
 }
 
+
 // 自己的class
 class Sonic853 {
     lvex: LVEX
+
     #boobs = false
     get Boobs() {
         return this.#boobs
@@ -296,6 +327,7 @@ class Sonic853 {
             this.lvex.SetMotion(this.#boobs ? 'motions/ShowBoobs1.motion3.json' : 'motions/ShowBoobs0.motion3.json')
         }
     }
+
     #glasses = true
     get Glasses() {
         return this.#glasses
@@ -306,12 +338,164 @@ class Sonic853 {
             this.lvex.SetMotion(this.#glasses ? 'motions/ShowGlasses1.motion3.json' : 'motions/ShowGlasses0.motion3.json')
         }
     }
+
+    #expressions: 'idle'
+        | 'eyes1'
+        | 'eyes2'
+        | 'eyes3'
+        | 'eyes4'
+        | 'eyes5'
+        | 'eyesX'
+        | 'eyesBaka'
+        | 'mouth1'
+        | 'mouth2'
+        | 'mouth3'
+        | 'mouth4'
+        | 'Baka'
+        | 'Scary'
+        | 'XXX'
+        | 'Ehehe' = 'idle'
+    get Exp() {
+        return this.#expressions
+    }
+    set Exp(val) {
+        if (this.#expressions !== val) {
+            this.#expressions = val
+            let exp = 0
+            switch (this.#expressions) {
+                case 'idle':
+                    exp = 0
+                    break;
+                case 'eyes1':
+                    exp = 1
+                    break;
+                case 'eyes2':
+                    exp = 2
+                    break;
+                case 'eyes3':
+                    exp = 3
+                    break;
+                case 'eyes4':
+                    exp = 4
+                    break;
+                case 'eyes5':
+                    exp = 5
+                    break;
+                case 'eyesX':
+                    exp = 6
+                    break;
+                case 'eyesBaka':
+                    exp = 7
+                    break;
+                case 'mouth1':
+                    exp = 8
+                    break;
+                case 'mouth2':
+                    exp = 9
+                    break;
+                case 'mouth3':
+                    exp = 10
+                    break;
+                case 'mouth4':
+                    exp = 11
+                    break;
+                case 'Baka':
+                    exp = 12
+                    break;
+                case 'Scary':
+                    exp = 13
+                    break;
+                case 'XXX':
+                    exp = 14
+                    break;
+                case 'Ehehe':
+                    exp = 15
+                    break;
+                default:
+                    break;
+            }
+            this.lvex.SetExpId(exp)
+        }
+    }
+
+    #red_face = false
+    get RedFace() {
+        return this.#red_face
+    }
+    set RedFace(val) {
+        if (this.#red_face !== val) {
+            this.#red_face = val
+            this.lvex.SetMotion(this.#red_face ? 'motions/ShowRedFace1.motion3.json' : 'motions/ShowRedFace0.motion3.json')
+        }
+    }
+
+    #sweats = false
+    get Sweats() {
+        return this.#sweats
+    }
+    set Sweats(val) {
+        if (this.#sweats !== val) {
+            this.#sweats = val
+            this.lvex.SetMotion(this.#sweats ? 'motions/ShowSweats1.motion3.json' : 'motions/ShowSweats0.motion3.json')
+        }
+    }
+
+    #lines = false
+    get Lines() {
+        return this.#lines
+    }
+    set Lines(val) {
+        if (this.#lines !== val) {
+            this.#lines = val
+            this.lvex.SetMotion(this.#lines ? 'motions/ShowLines1.motion3.json' : 'motions/ShowLines0.motion3.json')
+        }
+    }
+
+    #drop = false
+    get Drop() {
+        return this.#drop
+    }
+    set Drop(val) {
+        if (this.#drop !== val) {
+            this.#drop = val
+            this.lvex.SetMotion(this.#drop ? 'motions/ShowDrop1.motion3.json' : 'motions/ShowDrop0.motion3.json')
+        }
+    }
+
+    #dark_eye = false
+    get DarkEye() {
+        return this.#dark_eye
+    }
+    set DarkEye(val) {
+        if (this.#dark_eye !== val) {
+            this.#dark_eye = val
+            this.lvex.SetMotion(this.#dark_eye ? 'motions/ShowDarkEye1.motion3.json' : 'motions/ShowDarkEye0.motion3.json')
+        }
+    }
+
     constructor(id?: number, lvex?: LVEX) {
         this.lvex = lvex ?? new LVEX()
         if (typeof id === 'number') this.lvex.modelId = id
         this.lvex.Start()
     }
 }
+// nomal: idle
+// 优先级：1
+// death: eyes1
+// hp20: eyes3
+// hp50: eyes2
+// 优先级：2 (做不了)
+// 1 v 1-0: Scary
+// 5 v 1-0: eyesBaka
+// 5 v 3-2 : eyes5
+// 2 v 5: normal
+// 1 v >5: eyes3 + ShowRedFace1 + Sweats
+// 1 v 4-2: idle + Sweats
+// 优先级：3
+// 0 - 10 : Lines + Sweats
+// 10 - 0 : Baka
+
+// playerChange
 
 let lvex = new LVEX()
 let sonic853 = new Sonic853(0, lvex)
@@ -319,26 +503,121 @@ let hServer = new HServer()
 // 与 this.emit('message', response) 对应
 hServer.on('message', (response: Data) => {
     // console.log('getdata', response)
-    if (response.player.activity === 'menu') {
+    const player = response.player
+    if (player.activity === 'menu') {
         sonic853.Boobs = false
         sonic853.Glasses = true
+        sonic853.Lines = false
+        sonic853.Sweats = false
+        sonic853.RedFace = false
+        sonic853.Exp = 'idle'
     }
-    else if (response.player.activity === 'playing') {
+    else if (player.activity === 'playing') {
         console.log('playing')
-        console.log(typeof response.player.state?.money)
-        if (typeof response.player.state?.money === 'number') {
-            if (response.player.state.money >= 3000) {
-                console.log('大于3000！')
-                sonic853.Boobs = true
+        if (player.steamid !== '76561198129129355') return
+        if (player.state) {
+            let Lines = false
+            let Sweats = false
+            let RedFace = false
+            let Boobs = false
+            let Glasses = true
+            let Exp: 'idle'
+                | 'eyes1'
+                | 'eyes2'
+                | 'eyes3'
+                | 'eyes4'
+                | 'eyes5'
+                | 'eyesX'
+                | 'eyesBaka'
+                | 'mouth1'
+                | 'mouth2'
+                | 'mouth3'
+                | 'mouth4'
+                | 'Baka'
+                | 'Scary'
+                | 'XXX'
+                | 'Ehehe' = 'idle'
+            const state = player.state
+            if (typeof state.money === 'number') {
+                if (state.money >= 5000) {
+                    // console.log('大于5000！')
+                    Boobs = true
+                }
+                else {
+                    // console.log('小于5000！')
+                    Boobs = false
+                }
             }
-            else {
-                console.log('小于3000！')
-                sonic853.Boobs = false
+            if (typeof state.helmet === 'boolean') {
+                Glasses = response.player.state.helmet
             }
+            if (player.team) {
+                const [team, enemy_team]: ['team_ct' | 'team_t', 'team_ct' | 'team_t'] = player.team === 'CT' ? ['team_ct', 'team_t'] : ['team_t', 'team_ct']
+                if (response.map) {
+                    const score = response.map[team].score
+                    const enemy_score = response.map[enemy_team].score
+                    if (enemy_score - score >= 10) {
+                        Lines = true
+                        Sweats = true
+                        Exp = 'idle'
+                    } else if (score - enemy_score >= 10) {
+                        Lines = false
+                        Sweats = false
+                        Exp = 'Baka'
+                    }
+                    else {
+                        Lines = false
+                        Sweats = false
+                        Exp = 'idle'
+                    }
+                }
+            }
+            if (typeof state.health === 'number') {
+                switch (true) {
+                    case state.health <= 0:
+                        {
+                            Exp = 'eyes1'
+                            sonic853.Glasses = false
+                        }
+                        break;
+                    case state.health <= 20:
+                        {
+                            Exp = 'eyes3'
+                            RedFace = true
+                        }
+                        break;
+                    case state.health <= 50:
+                        {
+                            Exp = 'eyes2'
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (typeof state.flashed === 'number') {
+                if (state.flashed >= 50) Exp = 'eyesX'
+            }
+            if (typeof state.smoked === 'number') {
+                if (state.smoked >= 50) Exp = 'eyesBaka'
+            }
+            if (typeof state.burning === 'number') {
+                if (state.burning >= 50) Sweats = true
+            }
+            sonic853.Boobs = Boobs
+            sonic853.Glasses = Glasses
+            sonic853.Lines = Lines
+            sonic853.Sweats = Sweats
+            sonic853.RedFace = RedFace
+            sonic853.Exp = Exp
         }
-        if (typeof response.player.state?.helmet === 'boolean') {
-            sonic853.Glasses = response.player.state.helmet
-        }
+
+
     }
 })
 hServer.Start()
+
+// setTimeout(() => {
+//     console.log('send message')
+//     sonic853.Exp = 'eyesBaka'
+// }, 3000)
