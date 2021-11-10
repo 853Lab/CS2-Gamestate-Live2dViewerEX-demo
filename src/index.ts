@@ -52,10 +52,11 @@ export interface Data {
             health: number
             armor: number
             helmet: boolean
-            // 255 - 0
+            // 0 - 255
             flashed: number
             smoked: number
             burning: number
+            // 0 - 16000
             money: number
             round_kills: number
             round_killhs: number
@@ -115,19 +116,20 @@ export interface Data {
         the853: 'rtx3070ti'
     }
 }
-
-const RList = new class {
+const snooze = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+class RList {
     time = 200
     #list = -1
-    snooze = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
     async Push() {
         this.#list++
-        await this.snooze(this.#list * this.time)
+        await snooze(this.#list * this.time)
         Promise.resolve().finally(() => {
             setTimeout(() => { this.#list-- }, (this.#list + 1) * this.time)
         })
     }
 }
+
+const rList = new RList()
 
 export class Event {
     events: any
@@ -209,6 +211,7 @@ export class HServer extends Event {
         })
         this.emit('close', 'closed')
     }
+    // 处理csgo发来的信息，csgo是一股脑的向程序发送post来达到数据实时，就很mmp
     createServer(req: http.IncomingMessage, res: http.ServerResponse) {
         if (req.method == 'POST') {
             res.writeHead(200, { 'Content-Type': 'text/html' })
@@ -218,10 +221,12 @@ export class HServer extends Event {
             })
             req.on('end', () => {
                 if (typeof body === 'string') {
+                    // 判断发来的数据是否有更新
                     if (this.body != body) {
                         this.body = body
-                        let response: Data = JSON.parse(body)
-                        let msg = JSON.stringify(response)
+                        const response: Data = JSON.parse(body)
+                        const msg = JSON.stringify(response)
+                        // emit：数据更新了，内容是response
                         this.emit('message', response)
                         if (this.conf.wss.enable) this.wss.clients.forEach(client => client.send(msg))
                         console.log('POST payload: ', response)
@@ -240,8 +245,8 @@ export class HServer extends Event {
 
 // 建立与Live2dViewerEx的连接
 class LVEX extends Event {
-    port = 10086
     host = '127.0.0.1'
+    port = 10086
     path = 'api'
     ws: WebSocket
     connected = false
@@ -305,7 +310,6 @@ class LVEX extends Event {
     }
     async SendMsg(msg: string) {
         console.log('发送LVEX：', msg)
-        await RList.Push()
         return new Promise((resolve) => {
             this.ws.send(msg, e => resolve(e))
         })
@@ -318,24 +322,30 @@ class Sonic853 {
     lvex: LVEX
 
     #boobs = false
+    #boobs_list = new RList()
     get Boobs() {
         return this.#boobs
     }
     set Boobs(val) {
         if (this.#boobs !== val) {
             this.#boobs = val
-            this.lvex.SetMotion(this.#boobs ? 'motions/ShowBoobs1.motion3.json' : 'motions/ShowBoobs0.motion3.json')
+            this.#boobs_list.Push().then(e => {
+                this.lvex.SetMotion(this.#boobs ? 'motions/ShowBoobs1.motion3.json' : 'motions/ShowBoobs0.motion3.json')
+            })
         }
     }
 
     #glasses = true
+    #glasses_list = new RList()
     get Glasses() {
         return this.#glasses
     }
     set Glasses(val) {
         if (this.#glasses !== val) {
             this.#glasses = val
-            this.lvex.SetMotion(this.#glasses ? 'motions/ShowGlasses1.motion3.json' : 'motions/ShowGlasses0.motion3.json')
+            this.#glasses_list.Push().then(e => {
+                this.lvex.SetMotion(this.#glasses ? 'motions/ShowGlasses1.motion3.json' : 'motions/ShowGlasses0.motion3.json')
+            })
         }
     }
 
@@ -419,57 +429,72 @@ class Sonic853 {
     }
 
     #red_face = false
+    #red_face_list = new RList()
     get RedFace() {
         return this.#red_face
     }
     set RedFace(val) {
         if (this.#red_face !== val) {
             this.#red_face = val
-            this.lvex.SetMotion(this.#red_face ? 'motions/ShowRedFace1.motion3.json' : 'motions/ShowRedFace0.motion3.json')
+            this.#red_face_list.Push().then(e => {
+                this.lvex.SetMotion(this.#red_face ? 'motions/ShowRedFace1.motion3.json' : 'motions/ShowRedFace0.motion3.json')
+            })
         }
     }
 
     #sweats = false
+    #sweats_list = new RList()
     get Sweats() {
         return this.#sweats
     }
     set Sweats(val) {
         if (this.#sweats !== val) {
             this.#sweats = val
-            this.lvex.SetMotion(this.#sweats ? 'motions/ShowSweats1.motion3.json' : 'motions/ShowSweats0.motion3.json')
+            this.#sweats_list.Push().then(e => {
+                this.lvex.SetMotion(this.#sweats ? 'motions/ShowSweats1.motion3.json' : 'motions/ShowSweats0.motion3.json')
+            })
         }
     }
 
     #lines = false
+    #lines_list = new RList()
     get Lines() {
         return this.#lines
     }
     set Lines(val) {
         if (this.#lines !== val) {
             this.#lines = val
-            this.lvex.SetMotion(this.#lines ? 'motions/ShowLines1.motion3.json' : 'motions/ShowLines0.motion3.json')
+            this.#lines_list.Push().then(e => {
+                this.lvex.SetMotion(this.#lines ? 'motions/ShowLines1.motion3.json' : 'motions/ShowLines0.motion3.json')
+            })
         }
     }
 
     #drop = false
+    #drop_list = new RList()
     get Drop() {
         return this.#drop
     }
     set Drop(val) {
         if (this.#drop !== val) {
             this.#drop = val
-            this.lvex.SetMotion(this.#drop ? 'motions/ShowDrop1.motion3.json' : 'motions/ShowDrop0.motion3.json')
+            this.#drop_list.Push().then(e => {
+                this.lvex.SetMotion(this.#drop ? 'motions/ShowDrop1.motion3.json' : 'motions/ShowDrop0.motion3.json')
+            })
         }
     }
 
     #dark_eye = false
+    #dark_eye_list = new RList()
     get DarkEye() {
         return this.#dark_eye
     }
     set DarkEye(val) {
         if (this.#dark_eye !== val) {
             this.#dark_eye = val
-            this.lvex.SetMotion(this.#dark_eye ? 'motions/ShowDarkEye1.motion3.json' : 'motions/ShowDarkEye0.motion3.json')
+            this.#dark_eye_list.Push().then(e => {
+                this.lvex.SetMotion(this.#dark_eye ? 'motions/ShowDarkEye1.motion3.json' : 'motions/ShowDarkEye0.motion3.json')
+            })
         }
     }
 
@@ -477,6 +502,7 @@ class Sonic853 {
         this.lvex = lvex ?? new LVEX()
         if (typeof id === 'number') this.lvex.modelId = id
         this.lvex.Start()
+        this.#boobs_list.time = this.#dark_eye_list.time = this.#drop_list.time = this.#glasses_list.time = this.#lines_list.time = this.#red_face_list.time = this.#sweats_list.time = 330
     }
 }
 // nomal: idle
@@ -504,7 +530,9 @@ let hServer = new HServer()
 hServer.on('message', (response: Data) => {
     // console.log('getdata', response)
     const player = response.player
+    // 玩家回到菜单
     if (player.activity === 'menu') {
+        console.log('menu')
         sonic853.Boobs = false
         sonic853.Glasses = true
         sonic853.Lines = false
@@ -512,10 +540,12 @@ hServer.on('message', (response: Data) => {
         sonic853.RedFace = false
         sonic853.Exp = 'idle'
     }
+    // 玩家在playing
     else if (player.activity === 'playing') {
-        console.log('playing')
+        // 玩家阵亡后切换到其他玩家时会显示其他玩家的状态，故采用steamid过滤
         if (player.steamid !== '76561198129129355') return
         if (player.state) {
+            // 开始建立状态，不急着应用到l2d模型上
             let Lines = false
             let Sweats = false
             let RedFace = false
@@ -538,6 +568,7 @@ hServer.on('message', (response: Data) => {
                 | 'XXX'
                 | 'Ehehe' = 'idle'
             const state = player.state
+            // 判断钱数
             if (typeof state.money === 'number') {
                 if (state.money >= 5000) {
                     // console.log('大于5000！')
@@ -548,10 +579,13 @@ hServer.on('message', (response: Data) => {
                     Boobs = false
                 }
             }
+            // 判断头盔
             if (typeof state.helmet === 'boolean') {
                 Glasses = response.player.state.helmet
             }
+            // 判断分组
             if (player.team) {
+                // 判断玩家所在的阵营
                 const [team, enemy_team]: ['team_ct' | 'team_t', 'team_ct' | 'team_t'] = player.team === 'CT' ? ['team_ct', 'team_t'] : ['team_t', 'team_ct']
                 if (response.map) {
                     const score = response.map[team].score
@@ -572,12 +606,13 @@ hServer.on('message', (response: Data) => {
                     }
                 }
             }
+            // 判断血量
             if (typeof state.health === 'number') {
                 switch (true) {
                     case state.health <= 0:
                         {
                             Exp = 'eyes1'
-                            sonic853.Glasses = false
+                            Glasses = false
                         }
                         break;
                     case state.health <= 20:
@@ -595,15 +630,19 @@ hServer.on('message', (response: Data) => {
                         break;
                 }
             }
-            if (typeof state.flashed === 'number') {
-                if (state.flashed >= 50) Exp = 'eyesX'
-            }
+            // 是否混烟，混烟时会跳到255，退出烟雾后逐渐回退到0
             if (typeof state.smoked === 'number') {
                 if (state.smoked >= 50) Exp = 'eyesBaka'
             }
+            // 是否被烧，被烧时会跳到255，然后逐渐回退到0
             if (typeof state.burning === 'number') {
                 if (state.burning >= 50) Sweats = true
             }
+            // 是否被闪，被闪时会跳到255，然后逐渐回退到0
+            if (typeof state.flashed === 'number') {
+                if (state.flashed >= 50) Exp = 'eyesX'
+            }
+            // 最后将状态发送给模型
             sonic853.Boobs = Boobs
             sonic853.Glasses = Glasses
             sonic853.Lines = Lines
@@ -611,13 +650,6 @@ hServer.on('message', (response: Data) => {
             sonic853.RedFace = RedFace
             sonic853.Exp = Exp
         }
-
-
     }
 })
 hServer.Start()
-
-// setTimeout(() => {
-//     console.log('send message')
-//     sonic853.Exp = 'eyesBaka'
-// }, 3000)
