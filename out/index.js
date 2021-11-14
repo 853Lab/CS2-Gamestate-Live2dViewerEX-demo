@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const lvex_1 = require("./lvex");
 const listenserver_1 = require("./listenserver");
+const lvex_1 = require("./lvex");
 const sonic853_1 = require("./sonic853");
 let lvex = new lvex_1.LVEX();
 let sonic853 = new sonic853_1.Sonic853(0, lvex);
