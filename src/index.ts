@@ -102,26 +102,16 @@ listenServer.on('message', (response: Data) => {
             }
             // 判断血量
             if (typeof state.health === 'number') {
-                switch (true) {
-                    case state.health <= 0:
-                        {
-                            Exp = 'eyes1'
-                            Glasses = false
-                        }
-                        break;
-                    case state.health <= 20:
-                        {
-                            Exp = 'eyes3'
-                            RedFace = true
-                        }
-                        break;
-                    case state.health <= 50:
-                        {
-                            Exp = 'eyes2'
-                        }
-                        break;
-                    default:
-                        break;
+                if (state.health <= 0) {
+                    Exp = 'eyes1'
+                    Glasses = false
+                }
+                else if (state.health <= 20) {
+                    Exp = 'eyes3'
+                    RedFace = true
+                }
+                else if (state.health <= 50) {
+                    Exp = 'eyes2'
                 }
             }
             // 是否混烟，混烟时会跳到255，退出烟雾后逐渐回退到0
