@@ -1,7 +1,7 @@
 
-import { Rifle, SubmachineGun, Shotgun, MachineGun, SniperRifle, Pistol, Taser, Shield, Grenade, Knife, C4, ZoneRepulsor, Tablet, StackableItem, BreachCharge, BumpMine } from './Weapon/type'
-import { RifleOf, SubmachineGunOf, ShotgunOf, MachineGunOf, SniperRifleOf, PistolOf, TaserOf, ShieldOf, GrenadeOf, KnifeOf, C4Of, ZoneRepulsorOf, TabletOf, StackableItemOf, BreachChargeOf, BumpMineOf } from './Weapon/type'
-import { Data } from './data'
+import { Rifle, SubmachineGun, Shotgun, MachineGun, SniperRifle, Pistol, Taser, Shield, Grenade, Knife, C4, ZoneRepulsor, Tablet, StackableItem, BreachCharge, BumpMine } from './gsi_data/weapon/type'
+import { RifleOf, SubmachineGunOf, ShotgunOf, MachineGunOf, SniperRifleOf, PistolOf, TaserOf, ShieldOf, GrenadeOf, KnifeOf, C4Of, ZoneRepulsorOf, TabletOf, StackableItemOf, BreachChargeOf, BumpMineOf } from './gsi_data/weapon/type'
+import { GameStateData } from './gsi_data/main'
 import { ListenServer } from './listenserver'
 import { LVEX } from './lvex'
 import { Sonic853 } from './sonic853'
@@ -11,7 +11,7 @@ let lvex = new LVEX()
 let sonic853 = new Sonic853(0, lvex)
 let listenServer = new ListenServer()
 // 与 this.emit('message', response) 对应
-listenServer.on('message', (response: Data) => {
+listenServer.on('message', (response: GameStateData) => {
     // console.log('getdata', response)
     const player = response.player
     // 玩家回到菜单

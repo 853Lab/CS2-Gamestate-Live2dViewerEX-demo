@@ -2,7 +2,7 @@
 import http = require('http')
 import { Event } from './method'
 import { WebSocketServer } from 'ws'
-import { Data } from './data'
+import { GameStateData } from './gsi_data/main'
 /** 建立监听CSGO发来的数据 */
 export class ListenServer extends Event {
     port = 8532
@@ -52,7 +52,7 @@ export class ListenServer extends Event {
                     // 判断发来的数据是否有更新
                     if (this.body != body) {
                         this.body = body
-                        const response: Data = JSON.parse(body)
+                        const response: GameStateData = JSON.parse(body)
                         const msg = JSON.stringify(response)
                         // emit：数据更新了，内容是response
                         this.emit('message', response)
