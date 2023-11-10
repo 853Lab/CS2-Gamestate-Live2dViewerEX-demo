@@ -9,6 +9,6 @@
       "moduleResolution": "Node",
       "experimentalDecorators": true,
       "rootDir": "src",
-      "outDir": "out"
+      "outDir": "dist"
     }
   }

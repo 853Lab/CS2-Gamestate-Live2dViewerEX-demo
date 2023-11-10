@@ -5,7 +5,7 @@
   "main": "out/index.js",
   "scripts": {
     "build:auto": "tsc -w",
-    "run": "node --inspect out/index.js"
+    "run": "node --inspect dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "cs2-gamestate-integration-data": "github:Sonic853/CS2-Gamestate-Integration-Data",
     "ws": "^8.14.2"
   }
 }

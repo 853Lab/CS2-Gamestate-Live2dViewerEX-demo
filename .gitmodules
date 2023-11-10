@@ -1,3 +1,0 @@
-[submodule "src/gsi_data"]
-	path = src/gsi_data
-	url = git@github.com:Sonic853/CS2-Gamestate-Integration-Data.git

@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  cs2-gamestate-integration-data:
+    specifier: github:Sonic853/CS2-Gamestate-Integration-Data
+    version: git@github.com+Sonic853/CS2-Gamestate-Integration-Data/2f0d693a04e83a7abff63dd3019c85a64bce4a07
   ws:
     specifier: ^8.14.2
     version: 8.14.2
@@ -49,4 +52,10 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+    dev: false
+
+  git@github.com+Sonic853/CS2-Gamestate-Integration-Data/2f0d693a04e83a7abff63dd3019c85a64bce4a07:
+    resolution: {commit: 2f0d693a04e83a7abff63dd3019c85a64bce4a07, repo: git@github.com:Sonic853/CS2-Gamestate-Integration-Data.git, type: git}
+    name: cs2-gamestate-integration-data
+    version: 1.0.0
     dev: false

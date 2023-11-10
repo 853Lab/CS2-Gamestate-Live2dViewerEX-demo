@@ -2,7 +2,7 @@
 import http = require('http')
 import { Event } from './method'
 import { WebSocketServer } from 'ws'
-import { GameStateData } from './gsi_data/main'
+import { GameStateData } from 'cs2-gamestate-integration-data/dist/main'
 /** 建立监听CSGO发来的数据 */
 export class ListenServer extends Event {
     port = 8532

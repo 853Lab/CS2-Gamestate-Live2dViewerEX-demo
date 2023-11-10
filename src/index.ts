@@ -1,7 +1,7 @@
 
-import { Rifle, SubmachineGun, Shotgun, MachineGun, SniperRifle, Pistol, Taser, Shield, Grenade, Knife, C4, ZoneRepulsor, Tablet, StackableItem, BreachCharge, BumpMine } from './gsi_data/weapon/type'
-import { RifleOf, SubmachineGunOf, ShotgunOf, MachineGunOf, SniperRifleOf, PistolOf, TaserOf, ShieldOf, GrenadeOf, KnifeOf, C4Of, ZoneRepulsorOf, TabletOf, StackableItemOf, BreachChargeOf, BumpMineOf } from './gsi_data/weapon/type'
-import { GameStateData } from './gsi_data/main'
+import { Rifle, SubmachineGun, Shotgun, MachineGun, SniperRifle, Pistol, Taser, Shield, Grenade, Knife, C4, ZoneRepulsor, Tablet, StackableItem, BreachCharge, BumpMine } from 'cs2-gamestate-integration-data/dist/weapon/type'
+import { RifleOf, SubmachineGunOf, ShotgunOf, MachineGunOf, SniperRifleOf, PistolOf, TaserOf, ShieldOf, GrenadeOf, KnifeOf, C4Of, ZoneRepulsorOf, TabletOf, StackableItemOf, BreachChargeOf, BumpMineOf } from 'cs2-gamestate-integration-data/dist/weapon/type'
+import { GameStateData } from 'cs2-gamestate-integration-data/dist/main'
 import { ListenServer } from './listenserver'
 import { LVEX } from './lvex'
 import { Sonic853 } from './sonic853'
