@@ -3,6 +3,7 @@
       "target": "esnext",
       "module": "commonjs",
       "jsx": "react",
+      "declaration": true,
       "sourceMap": false,
       "noImplicitAny": true,
       "moduleResolution": "Node",

@@ -20,7 +20,8 @@
   "homepage": "https://github.com/853Lab/CSGO_Gamestate_WebSocket#readme",
   "devDependencies": {
     "@types/node": "^16.18.61",
-    "@types/ws": "^8.5.9"
+    "@types/ws": "^8.5.9",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "ws": "^8.14.2"
