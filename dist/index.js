@@ -97,7 +97,7 @@ listenServer.on('message', (response) => {
                     Exp = 'eyes2';
                 }
             }
-            // 是否混烟，混烟时会跳到255，退出烟雾后逐渐回退到0
+            // 是否混烟，数值越大越玩家越被烟雾影响
             if (typeof state.smoked === 'number') {
                 if (state.smoked >= 50)
                     Exp = 'eyesBaka';

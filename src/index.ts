@@ -1,7 +1,7 @@
 
-import { Rifle, SubmachineGun, Shotgun, MachineGun, SniperRifle, Pistol, Taser, Shield, Grenade, Knife, C4, ZoneRepulsor, Tablet, StackableItem, BreachCharge, BumpMine } from 'cs2-gamestate-integration-data/dist/weapon/type'
-import { RifleOf, SubmachineGunOf, ShotgunOf, MachineGunOf, SniperRifleOf, PistolOf, TaserOf, ShieldOf, GrenadeOf, KnifeOf, C4Of, ZoneRepulsorOf, TabletOf, StackableItemOf, BreachChargeOf, BumpMineOf } from 'cs2-gamestate-integration-data/dist/weapon/type'
-import { GameStateData } from 'cs2-gamestate-integration-data/dist/main'
+import { Rifle, SubmachineGun, Shotgun, MachineGun, SniperRifle, Pistol, Taser, Shield, Grenade, Knife, C4, ZoneRepulsor, Tablet, StackableItem, BreachCharge, BumpMine } from 'cs2-gamestate-integration-data/weapon/type'
+import { RifleOf, SubmachineGunOf, ShotgunOf, MachineGunOf, SniperRifleOf, PistolOf, TaserOf, ShieldOf, GrenadeOf, KnifeOf, C4Of, ZoneRepulsorOf, TabletOf, StackableItemOf, BreachChargeOf, BumpMineOf } from 'cs2-gamestate-integration-data/weapon/type'
+import { GameStateData } from 'cs2-gamestate-integration-data/main'
 import { ListenServer } from './listenserver'
 import { LVEX } from './lvex'
 import { Sonic853 } from './sonic853'
@@ -114,7 +114,7 @@ listenServer.on('message', (response: GameStateData) => {
                     Exp = 'eyes2'
                 }
             }
-            // 是否混烟，混烟时会跳到255，退出烟雾后逐渐回退到0
+            // 是否混烟，数值越大越玩家越被烟雾影响
             if (typeof state.smoked === 'number') {
                 if (state.smoked >= 50) Exp = 'eyesBaka'
             }
