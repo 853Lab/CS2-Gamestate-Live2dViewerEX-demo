@@ -6,12 +6,3 @@ export declare class RList {
     time: number;
     Push(): Promise<void>;
 }
-/** Event触发 */
-export declare class Event {
-    events: any;
-    constructor();
-    on(name: string, fn: Function): this;
-    emit(name: string, ...args: any): this;
-    off(name: string, fn: Function): this;
-    once(name: string, fn: Function): this;
-}

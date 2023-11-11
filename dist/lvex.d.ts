@@ -1,7 +1,8 @@
-import { WebSocket } from 'ws';
-import { Event } from './method';
+/// <reference types="node" />
+import { WebSocket } from "ws";
+import { EventEmitter } from "events";
 /** 建立与Live2dViewerEx的连接 */
-export declare class LVEX extends Event {
+export declare class LVEX extends EventEmitter {
     /** 域名或IP */
     host: string;
     /** 端口 */

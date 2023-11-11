@@ -7,7 +7,10 @@ settings:
 dependencies:
   cs2-gamestate-integration-data:
     specifier: github:Sonic853/CS2-Gamestate-Integration-Data
-    version: github.com/Sonic853/CS2-Gamestate-Integration-Data/d5ca8c96a68e18e5eb1c2ca9814184010ca78d91
+    version: github.com/Sonic853/CS2-Gamestate-Integration-Data/97ff4b8ce05572d4b822d77f86e9281a8db6c9ba
+  cs2-gamestate-integration-listener:
+    specifier: github:853Lab/CS2-Gamestate-Integration-Listener
+    version: github.com/853Lab/CS2-Gamestate-Integration-Listener/96e7e49fab4e1494c128b7284ec638c95a0e371f
   ws:
     specifier: ^8.14.2
     version: 8.14.2
@@ -54,8 +57,22 @@ packages:
         optional: true
     dev: false
 
-  github.com/Sonic853/CS2-Gamestate-Integration-Data/d5ca8c96a68e18e5eb1c2ca9814184010ca78d91:
-    resolution: {tarball: https://codeload.github.com/Sonic853/CS2-Gamestate-Integration-Data/tar.gz/d5ca8c96a68e18e5eb1c2ca9814184010ca78d91}
+  git@github.com+Sonic853/CS2-Gamestate-Integration-Data/97ff4b8ce05572d4b822d77f86e9281a8db6c9ba:
+    resolution: {commit: 97ff4b8ce05572d4b822d77f86e9281a8db6c9ba, repo: git@github.com:Sonic853/CS2-Gamestate-Integration-Data.git, type: git}
+    name: cs2-gamestate-integration-data
+    version: 1.0.0
+    dev: false
+
+  github.com/853Lab/CS2-Gamestate-Integration-Listener/96e7e49fab4e1494c128b7284ec638c95a0e371f:
+    resolution: {tarball: https://codeload.github.com/853Lab/CS2-Gamestate-Integration-Listener/tar.gz/96e7e49fab4e1494c128b7284ec638c95a0e371f}
+    name: cs2-gamestate-integration-listener
+    version: 1.0.0
+    dependencies:
+      cs2-gamestate-integration-data: git@github.com+Sonic853/CS2-Gamestate-Integration-Data/97ff4b8ce05572d4b822d77f86e9281a8db6c9ba
+    dev: false
+
+  github.com/Sonic853/CS2-Gamestate-Integration-Data/97ff4b8ce05572d4b822d77f86e9281a8db6c9ba:
+    resolution: {tarball: https://codeload.github.com/Sonic853/CS2-Gamestate-Integration-Data/tar.gz/97ff4b8ce05572d4b822d77f86e9281a8db6c9ba}
     name: cs2-gamestate-integration-data
     version: 1.0.0
     dev: false

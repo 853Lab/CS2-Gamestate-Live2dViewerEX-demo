@@ -1,13 +1,13 @@
-import { WebSocket } from 'ws'
-import { Event } from './method'
+import { WebSocket } from "ws"
+import { EventEmitter } from "events"
 /** 建立与Live2dViewerEx的连接 */
-export class LVEX extends Event {
+export class LVEX extends EventEmitter {
     /** 域名或IP */
-    host = '127.0.0.1'
+    host = "127.0.0.1"
     /** 端口 */
     port = 10086
     /** 路径 */
-    path = 'api'
+    path = "api"
     ws: WebSocket
     /** 是否连接上 */
     connected = false
@@ -30,20 +30,20 @@ export class LVEX extends Event {
         try {
             this.ws = new WebSocket(`ws://${this.host}:${this.port}/${this.path}`)
             await new Promise((resolve) => {
-                this.ws.on('open', () => {
-                    console.log('LVEX已连接！')
+                this.ws.on("open", () => {
+                    console.log("LVEX已连接！")
                     this.retry = retry
                     resolve(this.connected = true)
                 })
             })
-            this.ws.on('close', () => {
-                console.log('LVEX已断开！')
+            this.ws.on("close", () => {
+                console.log("LVEX已断开！")
                 this.connected = false
                 if (this.retry) this.Start()
             })
-            this.ws.on('message', response => {
-                console.log('LVEX：', response.toString())
-                this.emit('message', response)
+            this.ws.on("message", response => {
+                console.log("LVEX：", response.toString())
+                this.emit("message", response)
             })
         } catch (error) {
             console.error(error)
@@ -54,8 +54,8 @@ export class LVEX extends Event {
         this.retry = false
         this.ws.close()
     }
-    async SetMotion(mtn = '', type = 1, id = this.modelId) {
-        if (mtn === '' || !this.connected) return
+    async SetMotion(mtn = "", type = 1, id = this.modelId) {
+        if (mtn === "" || !this.connected) return
         const msg = JSON.stringify({
             msg: 13200,
             msgId: 1,
@@ -79,7 +79,7 @@ export class LVEX extends Event {
         await this.SendMsg(msg)
     }
     async SendMsg(msg: string) {
-        console.log('发送LVEX：', msg)
+        console.log("发送LVEX：", msg)
         return new Promise((resolve) => {
             this.ws.send(msg, e => resolve(e))
         })

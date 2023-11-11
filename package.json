@@ -1,7 +1,7 @@
 {
-  "name": "csgo_gamestate_live2dviewerex_demo",
+  "name": "cs2-gamestate-live2dviewerex-demo",
   "version": "1.0.0",
-  "description": "CSGO Gamestate Live2dViewerEX demo",
+  "description": "CS2 Gamestate Live2dViewerEX demo",
   "main": "out/index.js",
   "scripts": {
     "build:auto": "tsc -w",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/853Lab/CSGO_Gamestate_WebSocket.git"
+    "url": "git+https://github.com/853Lab/CS2-Gamestate-Live2dViewerEX-demo.git"
   },
   "keywords": [],
   "author": "Sonic853",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/853Lab/CSGO_Gamestate_WebSocket/issues"
+    "url": "https://github.com/853Lab/CS2-Gamestate-Live2dViewerEX-demo/issues"
   },
-  "homepage": "https://github.com/853Lab/CSGO_Gamestate_WebSocket#readme",
+  "homepage": "https://github.com/853Lab/CS2-Gamestate-Live2dViewerEX-demo#readme",
   "devDependencies": {
     "@types/node": "^16.18.61",
     "@types/ws": "^8.5.9",
@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "cs2-gamestate-integration-data": "github:Sonic853/CS2-Gamestate-Integration-Data",
+    "cs2-gamestate-integration-listener": "github:853Lab/CS2-Gamestate-Integration-Listener",
     "ws": "^8.14.2"
   }
 }

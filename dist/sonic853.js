@@ -15,7 +15,7 @@ class Sonic853 {
         if (this.#boobs !== val) {
             this.#boobs = val;
             this.#boobs_list.Push().then(e => {
-                this.lvex.SetMotion(this.#boobs ? 'motions/ShowBoobs1.motion3.json' : 'motions/ShowBoobs0.motion3.json');
+                this.lvex.SetMotion(this.#boobs ? "motions/ShowBoobs1.motion3.json" : "motions/ShowBoobs0.motion3.json");
             });
         }
     }
@@ -28,11 +28,11 @@ class Sonic853 {
         if (this.#glasses !== val) {
             this.#glasses = val;
             this.#glasses_list.Push().then(e => {
-                this.lvex.SetMotion(this.#glasses ? 'motions/ShowGlasses1.motion3.json' : 'motions/ShowGlasses0.motion3.json');
+                this.lvex.SetMotion(this.#glasses ? "motions/ShowGlasses1.motion3.json" : "motions/ShowGlasses0.motion3.json");
             });
         }
     }
-    #expressions = 'idle';
+    #expressions = "idle";
     get Exp() {
         return this.#expressions;
     }
@@ -41,52 +41,52 @@ class Sonic853 {
             this.#expressions = val;
             let exp = 0;
             switch (this.#expressions) {
-                case 'idle':
+                case "idle":
                     exp = 0;
                     break;
-                case 'eyes1':
+                case "eyes1":
                     exp = 1;
                     break;
-                case 'eyes2':
+                case "eyes2":
                     exp = 2;
                     break;
-                case 'eyes3':
+                case "eyes3":
                     exp = 3;
                     break;
-                case 'eyes4':
+                case "eyes4":
                     exp = 4;
                     break;
-                case 'eyes5':
+                case "eyes5":
                     exp = 5;
                     break;
-                case 'eyesX':
+                case "eyesX":
                     exp = 6;
                     break;
-                case 'eyesBaka':
+                case "eyesBaka":
                     exp = 7;
                     break;
-                case 'mouth1':
+                case "mouth1":
                     exp = 8;
                     break;
-                case 'mouth2':
+                case "mouth2":
                     exp = 9;
                     break;
-                case 'mouth3':
+                case "mouth3":
                     exp = 10;
                     break;
-                case 'mouth4':
+                case "mouth4":
                     exp = 11;
                     break;
-                case 'Baka':
+                case "Baka":
                     exp = 12;
                     break;
-                case 'Scary':
+                case "Scary":
                     exp = 13;
                     break;
-                case 'XXX':
+                case "XXX":
                     exp = 14;
                     break;
-                case 'Ehehe':
+                case "Ehehe":
                     exp = 15;
                     break;
                 default:
@@ -104,7 +104,7 @@ class Sonic853 {
         if (this.#red_face !== val) {
             this.#red_face = val;
             this.#red_face_list.Push().then(e => {
-                this.lvex.SetMotion(this.#red_face ? 'motions/ShowRedFace1.motion3.json' : 'motions/ShowRedFace0.motion3.json');
+                this.lvex.SetMotion(this.#red_face ? "motions/ShowRedFace1.motion3.json" : "motions/ShowRedFace0.motion3.json");
             });
         }
     }
@@ -117,7 +117,7 @@ class Sonic853 {
         if (this.#sweats !== val) {
             this.#sweats = val;
             this.#sweats_list.Push().then(e => {
-                this.lvex.SetMotion(this.#sweats ? 'motions/ShowSweats1.motion3.json' : 'motions/ShowSweats0.motion3.json');
+                this.lvex.SetMotion(this.#sweats ? "motions/ShowSweats1.motion3.json" : "motions/ShowSweats0.motion3.json");
             });
         }
     }
@@ -130,7 +130,7 @@ class Sonic853 {
         if (this.#lines !== val) {
             this.#lines = val;
             this.#lines_list.Push().then(e => {
-                this.lvex.SetMotion(this.#lines ? 'motions/ShowLines1.motion3.json' : 'motions/ShowLines0.motion3.json');
+                this.lvex.SetMotion(this.#lines ? "motions/ShowLines1.motion3.json" : "motions/ShowLines0.motion3.json");
             });
         }
     }
@@ -143,7 +143,7 @@ class Sonic853 {
         if (this.#drop !== val) {
             this.#drop = val;
             this.#drop_list.Push().then(e => {
-                this.lvex.SetMotion(this.#drop ? 'motions/ShowDrop1.motion3.json' : 'motions/ShowDrop0.motion3.json');
+                this.lvex.SetMotion(this.#drop ? "motions/ShowDrop1.motion3.json" : "motions/ShowDrop0.motion3.json");
             });
         }
     }
@@ -156,13 +156,13 @@ class Sonic853 {
         if (this.#dark_eye !== val) {
             this.#dark_eye = val;
             this.#dark_eye_list.Push().then(e => {
-                this.lvex.SetMotion(this.#dark_eye ? 'motions/ShowDarkEye1.motion3.json' : 'motions/ShowDarkEye0.motion3.json');
+                this.lvex.SetMotion(this.#dark_eye ? "motions/ShowDarkEye1.motion3.json" : "motions/ShowDarkEye0.motion3.json");
             });
         }
     }
     constructor(id, lvex) {
         this.lvex = lvex ?? new lvex_1.LVEX();
-        if (typeof id === 'number')
+        if (typeof id === "number")
             this.lvex.modelId = id;
         this.lvex.Start();
         this.#boobs_list.time = this.#dark_eye_list.time = this.#drop_list.time = this.#glasses_list.time = this.#lines_list.time = this.#red_face_list.time = this.#sweats_list.time = 330;

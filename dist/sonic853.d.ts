@@ -1,4 +1,4 @@
-import { LVEX } from './lvex';
+import { LVEX } from "./lvex";
 /** 自己的class */
 export declare class Sonic853 {
     #private;
