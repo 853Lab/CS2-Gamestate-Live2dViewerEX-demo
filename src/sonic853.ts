@@ -2,192 +2,193 @@ import { LVEX } from "./lvex"
 import { RList } from "./method"
 /** 自己的class */
 export class Sonic853 {
-    lvex: LVEX
+  lvex: LVEX
 
-    #boobs = false
-    #boobs_list = new RList()
-    get Boobs() {
-        return this.#boobs
+  #boobs = false
+  #boobs_list = new RList()
+  get Boobs() {
+    return this.#boobs
+  }
+  set Boobs(val) {
+    if (this.#boobs !== val) {
+      this.#boobs = val
+      this.#boobs_list.Push().then(e => {
+        this.lvex.SetMotion(this.#boobs ? "motions/ShowBoobs1.motion3.json" : "motions/ShowBoobs0.motion3.json")
+      })
     }
-    set Boobs(val) {
-        if (this.#boobs !== val) {
-            this.#boobs = val
-            this.#boobs_list.Push().then(e => {
-                this.lvex.SetMotion(this.#boobs ? "motions/ShowBoobs1.motion3.json" : "motions/ShowBoobs0.motion3.json")
-            })
-        }
-    }
+  }
 
-    #glasses = true
-    #glasses_list = new RList()
-    get Glasses() {
-        return this.#glasses
+  #glasses = true
+  #glasses_list = new RList()
+  get Glasses() {
+    return this.#glasses
+  }
+  set Glasses(val) {
+    if (this.#glasses !== val) {
+      this.#glasses = val
+      this.#glasses_list.Push().then(e => {
+        this.lvex.SetMotion(this.#glasses ? "motions/ShowGlasses1.motion3.json" : "motions/ShowGlasses0.motion3.json")
+      })
     }
-    set Glasses(val) {
-        if (this.#glasses !== val) {
-            this.#glasses = val
-            this.#glasses_list.Push().then(e => {
-                this.lvex.SetMotion(this.#glasses ? "motions/ShowGlasses1.motion3.json" : "motions/ShowGlasses0.motion3.json")
-            })
-        }
-    }
+  }
 
-    #expressions: "idle"
-        | "eyes1"
-        | "eyes2"
-        | "eyes3"
-        | "eyes4"
-        | "eyes5"
-        | "eyesX"
-        | "eyesBaka"
-        | "mouth1"
-        | "mouth2"
-        | "mouth3"
-        | "mouth4"
-        | "Baka"
-        | "Scary"
-        | "XXX"
-        | "Ehehe" = "idle"
-    get Exp() {
-        return this.#expressions
+  #expressions: Sonic853Exp = "idle"
+  get Exp() {
+    return this.#expressions
+  }
+  set Exp(val) {
+    if (this.#expressions !== val) {
+      this.#expressions = val
+      let exp = 0
+      switch (this.#expressions) {
+        case "idle":
+          exp = 0
+          break;
+        case "eyes1":
+          exp = 1
+          break;
+        case "eyes2":
+          exp = 2
+          break;
+        case "eyes3":
+          exp = 3
+          break;
+        case "eyes4":
+          exp = 4
+          break;
+        case "eyes5":
+          exp = 5
+          break;
+        case "eyesX":
+          exp = 6
+          break;
+        case "eyesBaka":
+          exp = 7
+          break;
+        case "mouth1":
+          exp = 8
+          break;
+        case "mouth2":
+          exp = 9
+          break;
+        case "mouth3":
+          exp = 10
+          break;
+        case "mouth4":
+          exp = 11
+          break;
+        case "Baka":
+          exp = 12
+          break;
+        case "Scary":
+          exp = 13
+          break;
+        case "XXX":
+          exp = 14
+          break;
+        case "Ehehe":
+          exp = 15
+          break;
+        default:
+          break;
+      }
+      this.lvex.SetExpId(exp)
     }
-    set Exp(val) {
-        if (this.#expressions !== val) {
-            this.#expressions = val
-            let exp = 0
-            switch (this.#expressions) {
-                case "idle":
-                    exp = 0
-                    break;
-                case "eyes1":
-                    exp = 1
-                    break;
-                case "eyes2":
-                    exp = 2
-                    break;
-                case "eyes3":
-                    exp = 3
-                    break;
-                case "eyes4":
-                    exp = 4
-                    break;
-                case "eyes5":
-                    exp = 5
-                    break;
-                case "eyesX":
-                    exp = 6
-                    break;
-                case "eyesBaka":
-                    exp = 7
-                    break;
-                case "mouth1":
-                    exp = 8
-                    break;
-                case "mouth2":
-                    exp = 9
-                    break;
-                case "mouth3":
-                    exp = 10
-                    break;
-                case "mouth4":
-                    exp = 11
-                    break;
-                case "Baka":
-                    exp = 12
-                    break;
-                case "Scary":
-                    exp = 13
-                    break;
-                case "XXX":
-                    exp = 14
-                    break;
-                case "Ehehe":
-                    exp = 15
-                    break;
-                default:
-                    break;
-            }
-            this.lvex.SetExpId(exp)
-        }
-    }
+  }
 
-    #red_face = false
-    #red_face_list = new RList()
-    get RedFace() {
-        return this.#red_face
+  #red_face = false
+  #red_face_list = new RList()
+  get RedFace() {
+    return this.#red_face
+  }
+  set RedFace(val) {
+    if (this.#red_face !== val) {
+      this.#red_face = val
+      this.#red_face_list.Push().then(e => {
+        this.lvex.SetMotion(this.#red_face ? "motions/ShowRedFace1.motion3.json" : "motions/ShowRedFace0.motion3.json")
+      })
     }
-    set RedFace(val) {
-        if (this.#red_face !== val) {
-            this.#red_face = val
-            this.#red_face_list.Push().then(e => {
-                this.lvex.SetMotion(this.#red_face ? "motions/ShowRedFace1.motion3.json" : "motions/ShowRedFace0.motion3.json")
-            })
-        }
-    }
+  }
 
-    #sweats = false
-    #sweats_list = new RList()
-    get Sweats() {
-        return this.#sweats
+  #sweats = false
+  #sweats_list = new RList()
+  get Sweats() {
+    return this.#sweats
+  }
+  set Sweats(val) {
+    if (this.#sweats !== val) {
+      this.#sweats = val
+      this.#sweats_list.Push().then(e => {
+        this.lvex.SetMotion(this.#sweats ? "motions/ShowSweats1.motion3.json" : "motions/ShowSweats0.motion3.json")
+      })
     }
-    set Sweats(val) {
-        if (this.#sweats !== val) {
-            this.#sweats = val
-            this.#sweats_list.Push().then(e => {
-                this.lvex.SetMotion(this.#sweats ? "motions/ShowSweats1.motion3.json" : "motions/ShowSweats0.motion3.json")
-            })
-        }
-    }
+  }
 
-    #lines = false
-    #lines_list = new RList()
-    get Lines() {
-        return this.#lines
+  #lines = false
+  #lines_list = new RList()
+  get Lines() {
+    return this.#lines
+  }
+  set Lines(val) {
+    if (this.#lines !== val) {
+      this.#lines = val
+      this.#lines_list.Push().then(e => {
+        this.lvex.SetMotion(this.#lines ? "motions/ShowLines1.motion3.json" : "motions/ShowLines0.motion3.json")
+      })
     }
-    set Lines(val) {
-        if (this.#lines !== val) {
-            this.#lines = val
-            this.#lines_list.Push().then(e => {
-                this.lvex.SetMotion(this.#lines ? "motions/ShowLines1.motion3.json" : "motions/ShowLines0.motion3.json")
-            })
-        }
-    }
+  }
 
-    #drop = false
-    #drop_list = new RList()
-    get Drop() {
-        return this.#drop
+  #drop = false
+  #drop_list = new RList()
+  get Drop() {
+    return this.#drop
+  }
+  set Drop(val) {
+    if (this.#drop !== val) {
+      this.#drop = val
+      this.#drop_list.Push().then(e => {
+        this.lvex.SetMotion(this.#drop ? "motions/ShowDrop1.motion3.json" : "motions/ShowDrop0.motion3.json")
+      })
     }
-    set Drop(val) {
-        if (this.#drop !== val) {
-            this.#drop = val
-            this.#drop_list.Push().then(e => {
-                this.lvex.SetMotion(this.#drop ? "motions/ShowDrop1.motion3.json" : "motions/ShowDrop0.motion3.json")
-            })
-        }
-    }
+  }
 
-    #dark_eye = false
-    #dark_eye_list = new RList()
-    get DarkEye() {
-        return this.#dark_eye
+  #dark_eye = false
+  #dark_eye_list = new RList()
+  get DarkEye() {
+    return this.#dark_eye
+  }
+  set DarkEye(val) {
+    if (this.#dark_eye !== val) {
+      this.#dark_eye = val
+      this.#dark_eye_list.Push().then(e => {
+        this.lvex.SetMotion(this.#dark_eye ? "motions/ShowDarkEye1.motion3.json" : "motions/ShowDarkEye0.motion3.json")
+      })
     }
-    set DarkEye(val) {
-        if (this.#dark_eye !== val) {
-            this.#dark_eye = val
-            this.#dark_eye_list.Push().then(e => {
-                this.lvex.SetMotion(this.#dark_eye ? "motions/ShowDarkEye1.motion3.json" : "motions/ShowDarkEye0.motion3.json")
-            })
-        }
-    }
+  }
 
-    constructor(id?: number, lvex?: LVEX) {
-        this.lvex = lvex ?? new LVEX()
-        if (typeof id === "number") this.lvex.modelId = id
-        this.lvex.Start()
-        this.#boobs_list.time = this.#dark_eye_list.time = this.#drop_list.time = this.#glasses_list.time = this.#lines_list.time = this.#red_face_list.time = this.#sweats_list.time = 330
-    }
+  constructor(id?: number, lvex?: LVEX) {
+    this.lvex = lvex ?? new LVEX()
+    if (typeof id === "number") this.lvex.modelId = id
+    this.lvex.Start()
+    this.#boobs_list.time = this.#dark_eye_list.time = this.#drop_list.time = this.#glasses_list.time = this.#lines_list.time = this.#red_face_list.time = this.#sweats_list.time = 330
+  }
 }
+export type Sonic853Exp = "idle"
+  | "eyes1"
+  | "eyes2"
+  | "eyes3"
+  | "eyes4"
+  | "eyes5"
+  | "eyesX"
+  | "eyesBaka"
+  | "mouth1"
+  | "mouth2"
+  | "mouth3"
+  | "mouth4"
+  | "Baka"
+  | "Scary"
+  | "XXX"
+  | "Ehehe"
 // nomal: idle
 // 优先级：1
 // 被烧、混烟、被闪
